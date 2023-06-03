@@ -4,10 +4,10 @@ import { GoChevronLeft } from "react-icons/go";
 import Location from "../components/Location";
 import Connect from "../components/Connect";
 import UploadFiles from "../components/UploadFiles";
-import GetContract from "../hooks/GetContract";
 import { useAccount } from "wagmi";
 import Router from "next/router";
 import dynamic from "next/dynamic";
+import abi from "../contract/ABI.json";
 import { ethers } from "ethers";
 
 const Map = dynamic(() => import("../components/Map"), {
@@ -20,9 +20,9 @@ const signup = () => {
   const [contact, setContact] = useState("");
   const [dob, setDob] = useState("");
   const [location, setLocation] = useState([]);
-  const [cids, setCids] = useState([]);
+  const [cids, setCids] = useState("");
   const [story, setStory] = useState();
-  const [need, setNeed] = useState();
+  const [required, setNeed] = useState("");
 
   const [twitter, setTwitter] = useState("");
   const [instagram, setInstagram] = useState("");
@@ -36,19 +36,24 @@ const signup = () => {
       console.log(cids);
       console.log(address);
       const loc =
-        location !== [] ? [location[0].toString(), location[1].toString()] : [];
-      const _user = [
-        address,
-        name,
-        dob,
-        contact,
-        story,
-        loc,
-        twitter,
-        mail,
-        instagram,
-        cids,
-      ];
+        location.length === 2
+          ? [location[0].toString(), location[1].toString()]
+          : [];
+      const _user = {
+        recepient: address,
+        required: required,
+        received: 0,
+        kyc: true,
+        name: name,
+        dob: dob,
+        contact: contact,
+        story: story,
+        location: loc,
+        twitter: twitter,
+        mail: mail,
+        instagram: instagram,
+        cid: cids,
+      };
 
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
@@ -88,7 +93,7 @@ const signup = () => {
             contact={contact}
             story={story}
             setStory={setStory}
-            need={need}
+            need={required}
             setNeed={setNeed}
           />
         ) : ctr === 3 ? (
