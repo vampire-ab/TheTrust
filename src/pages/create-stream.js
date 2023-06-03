@@ -12,11 +12,11 @@ const Stream = () => {
   } = useCreateStream(streamName ? { name: streamName } : null);
   useEffect(() => {
     function sendMessage() {  
-      console.log(stream);
-      socket.emit("sendd", {
-        streamName: stream?.name,
-        playbackId: stream?.playbackId,
-      });
+    //   console.log(stream);
+    //   socket.emit("sendd", {
+    //     streamName: stream?.name,
+    //     playbackId: stream?.playbackId,
+    //   });
     }
     if (stream !== undefined) sendMessage();
   }, [stream]);
