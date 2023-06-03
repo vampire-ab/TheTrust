@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import "@/styles/map.css";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { NEXT_PUBLIC_POLYGONMumbai } from "wagmi/chains";
+import { polygonMumbai } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import {
@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 const { publicClient } = configureChains(
-  [NEXT_PUBLIC_POLYGONMumbai],
+  [polygonMumbai],
   [alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_POLYGON }), publicProvider()]
 );
 // let socket;
