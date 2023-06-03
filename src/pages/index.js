@@ -17,19 +17,20 @@ export default function Home() {
   const [bal, setBal] = useState();
   const [donation, setDonation] = useState("");
   const donateToPool = async () => {
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-    console.log(signer);
-    const contract = new ethers.Contract(
-      "0xFD074d5a94c4e451ff8E6fbA94FDBEed7451DFEF",
-      abi,
-      signer
-    );
-    const donate = await contract.donateToPool({
-      value: ethers.utils.formatUnits(donation, "wei"),
-    });
-    donate.wait();
-    console.log(donate);
+    if (donation.length > 0) {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(
+        "0xFD074d5a94c4e451ff8E6fbA94FDBEed7451DFEF",
+        abi,
+        signer
+      );
+      const donate = await contract.donateToPool({
+        value: donation
+      });
+      donate.wait();
+      console.log(donate);
+    }
   };
   useEffect(() => {
     let balann;
