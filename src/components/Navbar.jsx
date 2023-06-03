@@ -7,8 +7,6 @@ const Profile = dynamic(() => import("./Profile"), {
 });
 
 const Navbar = () => {
-  const handleSubmit = () => {};
-
   return (
     <div className="bg-indigo-600 w-full">
       <div className="flex flex-wrap place-items-center w-full">
