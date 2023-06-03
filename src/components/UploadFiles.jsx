@@ -14,11 +14,11 @@ const UploadFiles = ({ setCtr, handleSubmit, setCids }) => {
     if (files.length > 0) {
       const output = await lighthouse.upload(
         files,
-        process.env.LIGHTHOUSE,
+        process.env.NEXT_PUBLIC_LIGHTHOUSE,
         progressCallback
       );
 
-      
+
       console.log("File Status:", output);
       console.log(
         "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash

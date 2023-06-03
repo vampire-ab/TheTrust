@@ -1,8 +1,6 @@
 import React from 'react'
-import {    
-    BsGlobe,
+import {
     BsTwitter,
-    BsLinkedin,
     BsInstagram,    
   } from "react-icons/bs";
   import { FiMail } from 'react-icons/fi';

@@ -19,7 +19,7 @@ const Profile = () => {
       else Router.push(`/individual`, { query: { address: acc.recepient } });
     } catch (e) {
       console.log(e);
-      window.alert("Change Network to polygon mumbai");
+      window.alert("Change Network to NEXT_PUBLIC_POLYGON mumbai");
     }
   };
   return (

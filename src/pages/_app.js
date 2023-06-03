@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import "@/styles/map.css";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { polygonMumbai } from "wagmi/chains";
+import { NEXT_PUBLIC_POLYGONMumbai } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import {
@@ -18,8 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 const { publicClient } = configureChains(
-  [polygonMumbai],
-  [alchemyProvider({ apiKey: process.env.POLYGON }), publicProvider()]
+  [NEXT_PUBLIC_POLYGONMumbai],
+  [alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_POLYGON }), publicProvider()]
 );
 // let socket;
 const wagmiConfig = createConfig({
@@ -28,7 +28,7 @@ const wagmiConfig = createConfig({
 });
 
 const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: process.env.LIVEPEER }),
+  provider: studioProvider({ apiKey: process.env.NEXT_PUBLIC_LIVEPEER }),
 });
 export default function App({ Component, pageProps }) {
   // async function socketInitializer() {

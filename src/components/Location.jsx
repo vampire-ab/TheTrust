@@ -10,7 +10,7 @@ const Location = ({ location, setCtr, zoomLevel, name, setLocation }) => {
         q: address,
         format: "json",
         addressDetails: 1,
-        polygon_geojson: 0,
+        NEXT_PUBLIC_POLYGON_geojson: 0,
       };
       const query = new URLSearchParams(params).toString();
       const response = await fetch(
