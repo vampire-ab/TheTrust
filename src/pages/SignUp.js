@@ -15,7 +15,6 @@ const Map = dynamic(() => import("../components/Map"), {
 const signup = () => {
   const [ctr, setCtr] = useState(2);
   const [user, setUser] = useState();
-  const [affiliation, setAffiliation] = useState();
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [dob, setDob] = useState("");
@@ -50,7 +49,14 @@ const signup = () => {
         cids,
       ];
 
-      const contract = GetContract();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      console.log(signer);
+      const contract = new ethers.Contract(
+        "0xFD074d5a94c4e451ff8E6fbA94FDBEed7451DFEF",
+        abi,
+        signer
+      );
       const res = await contract.createUser(_user);
       console.log(res);
       Router.push("/individual", { query: { address: address } });
