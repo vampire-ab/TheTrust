@@ -8,7 +8,7 @@ import Connect from "../components/Connect";
 import UploadFiles from "../components/UploadFiles";
 import GetContract from "../hooks/GetContract";
 import { useAccount } from "wagmi";
-import { useRouter } from "next/router";
+import Router from "next/router";
 import dynamic from "next/dynamic";
 
 const Map = dynamic(() => import("../components/Map"), {
@@ -55,26 +55,14 @@ const signup = () => {
       const contract = GetContract();
       const res = await contract.createUser(_user);
       console.log(res);
+      Router.push("/individual", { query: { address: address } });
     } catch (e) {
       console.log("Error: ", e);
     }
   };
-  const router = useRouter();
   return (
     <div className="">
       <div className="max-w-md m-auto mt-6 relative">
-        {user === 2 && ctr > 2 ? (
-          <button
-            onClick={() =>
-              ctr !== 5 ? setCtr(ctr + 1) : router.push("/individual")
-            }
-            className="absolute top-8 right-2 bg-gray-400 rounded py-1 px-3"
-          >
-            Skip
-          </button>
-        ) : (
-          <></>
-        )}
         {ctr !== 2 ? (
           <GoChevronLeft
             onClick={() => setCtr(ctr - 1)}

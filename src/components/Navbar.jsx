@@ -22,15 +22,9 @@ const Navbar = () => {
                   TheTrust
                 </div>
               </Link>
-              {/* <div className="text-black">
-                <label>
-                  <input
-                    className="rounded px-2 py-1 focus:outline-none"
-                    placeholder="Search"
-                    onSubmit={handleSubmit}
-                  ></input>
-                </label>
-              </div> */}
+              <div className="">
+                Made with ❤️ for Alchemy
+              </div>
               <div className="hidden xl:flex space-x-5 items-center">
                 <Profile />
               </div>
