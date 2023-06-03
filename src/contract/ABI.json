@@ -2,25 +2,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "addresses",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"components": [
 					{
 						"internalType": "address",
@@ -88,7 +69,7 @@
 						"type": "string"
 					}
 				],
-				"internalType": "struct TheTruth.Recepient",
+				"internalType": "struct TheTrust.Recepient",
 				"name": "_recepient",
 				"type": "tuple"
 			}
@@ -123,6 +104,25 @@
 		"name": "getFundsFromPool",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "addresses",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -194,6 +194,19 @@
 				"internalType": "string",
 				"name": "cid",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalRecepients",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -277,7 +290,7 @@
 						"type": "string"
 					}
 				],
-				"internalType": "struct TheTruth.Recepient",
+				"internalType": "struct TheTrust.Recepient",
 				"name": "",
 				"type": "tuple"
 			}

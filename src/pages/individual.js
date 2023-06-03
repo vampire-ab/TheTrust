@@ -9,35 +9,49 @@ import {
   BsInstagram,
   BsFillTelephoneFill,
   BsChat,
+  BsCameraVideo,
 } from "react-icons/bs";
 import { RxCrossCircled } from "react-icons/rx";
 import { BiCopy } from "react-icons/bi";
 import { FiMail } from "react-icons/fi";
-import useUser from "../hooks/useUser";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import GetContract from "@/hooks/GetContract";
+import { useAccount } from "wagmi";
+import { ethers } from "ethers";
+import abi from "../contract/ABI.json";
 
 const Map = dynamic(() => import("../components/Map"), {
   ssr: false,
 });
 
 const Individual = () => {
+  const { connector: activeConnector, isConnected, address } = useAccount();
   const { query } = useRouter();
-  console.log(query.address);
+  const [donate, setDonate] = useState("");  
   const [recepient, setRecepient] = useState({});
-  const { address } = useUser();
-  console.log(address);
   const [loc, setLoc] = useState([]);
   const [received, setReceived] = useState(1);
   const [required, setRequired] = useState(1);
   const [endorses, setEndorses] = useState(11);
   const [endorsed, setEndorsed] = useState(true);
   const percent = (received / required) * 100;
+  const handleDonation = async () => {
+    // await contract.connect();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    console.log(signer);
+    const contract = new ethers.Contract(
+      "0xFD074d5a94c4e451ff8E6fbA94FDBEed7451DFEF",
+      abi,
+      signer
+    );
+    const res = await contract.donate(recepient?.recepient, { value: donate });
+    console.log(res);
+  };
   useEffect(() => {
     const contract = GetContract();
-    console.log("here");
     async function fetch() {
       try {
         const res1 = await contract.viewRecepient(query.address);
@@ -52,10 +66,7 @@ const Individual = () => {
   }, []);
   return (
     <div>
-      <div
-        className="flex h-screen max-w-full bg-gray-800 "
-        x-data="{openMenu:1}"
-      >
+      <div className="flex h-screen max-w-full bg-gray-800 ">
         <div className="w-20 relative z-20 flex-shrink-0  px-2 overflow-y-auto bg-indigo-600 sm:block">
           <div className="mb-6">
             <div className="flex justify-center">
@@ -241,8 +252,8 @@ const Individual = () => {
                   </span>
                 </div>
               </div>
-              <div className="grid grid-cols-12 gap-6 border-b-2 pb-5">
-                <div className="col-span-12 sm:col-span-12 md:col-span-8">
+              <div className="grid grid-cols-12 gap-6 border-b-2 pb-4">
+                <div className="col-span-12 sm:col-span-12 md:col-span-9">
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 mt-3">
                     {/* <div className="p-4 flex gap-2 justify-center items-center">
                       <p className="text-lg font-bold pb-0">Age</p>
@@ -281,6 +292,25 @@ const Individual = () => {
                         </div>
                       </div>
                     </div>
+                    {recepient?.address !== address ? (
+                      <div className="p-4 flex gap-2 justify-center items-center">
+                        <input
+                          type="number"
+                          placeholder="10 Matic"
+                          className="w-full p-2 border rounded focus:outline-none"
+                          value={donate}
+                          onChange={(e) => setDonate(e.target.value)}
+                        />
+                        <button
+                          onClick={handleDonation}
+                          className="bg-indigo-600 text-white py-2 px-5 rounded"
+                        >
+                          Donate
+                        </button>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                     <div className="p-4 flex">
                       <div className="w-full flex"></div>
                     </div>
@@ -345,6 +375,24 @@ const Individual = () => {
                 alt="Chat"
               />
             </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      {recepient?.kyc === true && query.pathname !== "/create-stream" ? (
+        <div className="fixed bottom-3 right-24 mb-4 z-10">
+          <div className="">
+            <Link
+              href={{ pathname: "/create-stream" }}
+              title="Stream Now"
+              className="cursor-pointer peer w-16 h-16 flex flex-col ml-auto justify-center items-center rounded-full shadow transition-all hover:shadow-lg transform hover:scale-110 hover:-rotate-12"
+            >
+              <BsCameraVideo
+                className=" object-cover text-indigo-600 object-center w-10 h-10 transition-all duration-75 transform hover:scale-110 hover:-rotate-12"
+                alt="Stream Now"
+              />
+            </Link>
           </div>
         </div>
       ) : (

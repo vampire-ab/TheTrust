@@ -2,13 +2,9 @@ import React from "react";
 import { useAccount, useConnect } from "wagmi";
 import { FiCopy } from "react-icons/fi";
 import { BiUserCircle } from "react-icons/bi";
-import { Router } from "next/router";
-import abi from "../contract/ABI.json";
-import Link from "next/link";
-import { ethers } from "ethers";
+import Router from "next/router";
 import GetContract from "@/hooks/GetContract";
 const Profile = () => {
-  // const contract = GetContract();
   const { connector: activeConnector, isConnected, address } = useAccount();
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
@@ -17,10 +13,12 @@ const Profile = () => {
     try {
       const contract = GetContract();
       const acc = await contract.viewRecepient(address);
+      console.log(acc);
       if (acc.recepient === "0x0000000000000000000000000000000000000000")
         Router.push("/SignUp");
       else Router.push(`/individual`, { query: { address: acc.recepient } });
     } catch (e) {
+      console.log(e);
       window.alert("Change Network to polygon mumbai");
     }
   };

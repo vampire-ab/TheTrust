@@ -12,7 +12,7 @@ export default function Home() {
     isError,
     isLoading,
   } = useBalance({
-    address: "0xacBF7eAA5bF7c3B52401327edeAc5D8936e45606",
+    address: "0xFD074d5a94c4e451ff8E6fbA94FDBEed7451DFEF",
   });
   const [recepients, setRecepients] = useState([]);
   const [bal, setBal] = useState();
@@ -25,7 +25,9 @@ export default function Home() {
     console.log(donate);
   };
   useEffect(() => {
-    const balann = BigInt(balance?.value);
+    let balann;
+    if (balance) balann = BigInt(balance?.value);
+    else balann = 0;
     setBal(balann.toString());
     const contract = GetContract();
     async function fetch() {
@@ -37,12 +39,16 @@ export default function Home() {
           console.log(res);
           addresses.push(res);
           i++;
-          if (i === 8) break;
+          if (i >= 1) break;
         }
       } catch (e) {}
       try {
-        for (const address of addresses) {
-          const res1 = await contract.viewRecepient(address);
+        setRecepients([]);
+        console.log("here");
+        for (let i = 0; i < addresses.length; i++) {
+          // console.log("hhh");
+          const res1 = await contract.viewRecepient(addresses[i]);
+          // console.log(res1);
           setRecepients((old) => {
             return [...old, res1];
           });
@@ -51,7 +57,6 @@ export default function Home() {
     }
     fetch();
   }, []);
-  const router = useRouter();
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <div className="p-3 items-center justify-center flex w-full">
@@ -99,14 +104,14 @@ export default function Home() {
               // };
               // console.log(tmp);
               return (
-                <div
-                  onClick={(e) =>{
+                <button
+                  onClick={(e) => {
                     e.preventDefault();
                     Router.push({
                       pathname: `/individual`,
                       query: { address: recepient.recepient },
-                    })}
-                  }
+                    });
+                  }}
                   // href={{
                   //   pathname: `/individual`,
                   //   query: recepient,
@@ -125,7 +130,7 @@ export default function Home() {
                     Affiliation:{" "}
                     {JSON.parse(recepient[10]) === 1 ? "Individual" : "Agency"}
                   </div> */}
-                </div>
+                </button>
               );
             })}
           </div>
