@@ -17,6 +17,8 @@ const UploadFiles = ({ setCtr, handleSubmit, setCids }) => {
         process.env.LIGHTHOUSE,
         progressCallback
       );
+
+      
       console.log("File Status:", output);
       console.log(
         "Visit at https://gateway.lighthouse.storage/ipfs/" + output.data.Hash
