@@ -8,6 +8,7 @@ import GetContract from "../hooks/GetContract";
 import { useAccount } from "wagmi";
 import Router from "next/router";
 import dynamic from "next/dynamic";
+import { ethers } from "ethers";
 
 const Map = dynamic(() => import("../components/Map"), {
   ssr: false,
