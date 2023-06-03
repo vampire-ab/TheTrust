@@ -1,11 +1,10 @@
 import { Inter } from "next/font/google";
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import Link from "next/link";
 import { useBalance } from "wagmi";
-import GetContract from "@/hooks/GetContract";
-import { useRouter } from "next/router";
 import Router from "next/router";
+import abi from "../contract/ABI.json";
+
 export default function Home() {
   const {
     data: balance,
@@ -18,6 +17,14 @@ export default function Home() {
   const [bal, setBal] = useState();
   const [donation, setDonation] = useState("");
   const donateToPool = async () => {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    console.log(signer);
+    const contract = new ethers.Contract(
+      "0xFD074d5a94c4e451ff8E6fbA94FDBEed7451DFEF",
+      abi,
+      signer
+    );
     const donate = await contract.donateToPool({
       value: ethers.utils.formatUnits(donation, "wei"),
     });
@@ -29,8 +36,16 @@ export default function Home() {
     if (balance) balann = BigInt(balance?.value);
     else balann = 0;
     setBal(balann.toString());
-    const contract = GetContract();
+
     async function fetch() {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      console.log(signer);
+      const contract = new ethers.Contract(
+        "0xFD074d5a94c4e451ff8E6fbA94FDBEed7451DFEF",
+        abi,
+        signer
+      );
       let addresses = [];
       try {
         let i = 0;
@@ -39,14 +54,13 @@ export default function Home() {
           console.log(res);
           addresses.push(res);
           i++;
-          if (i >= 1) break;
+          if (i >= 8) break;
         }
       } catch (e) {}
       try {
         setRecepients([]);
         console.log("here");
         for (let i = 0; i < addresses.length; i++) {
-          // console.log("hhh");
           const res1 = await contract.viewRecepient(addresses[i]);
           // console.log(res1);
           setRecepients((old) => {
