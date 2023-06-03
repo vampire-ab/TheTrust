@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import useUser from "../hooks/useUser";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -21,10 +19,10 @@ const Navbar = () => {
               <Link href={{ pathname: "/" }}>
                 <div className="text-3xl font-bold font-heading">
                   {/* <!-- <img className="h-9" src="logo.png" alt="logo"> --> */}
-                  Logo
+                  TheTrust
                 </div>
               </Link>
-              <div className="text-black">
+              {/* <div className="text-black">
                 <label>
                   <input
                     className="rounded px-2 py-1 focus:outline-none"
@@ -32,7 +30,7 @@ const Navbar = () => {
                     onSubmit={handleSubmit}
                   ></input>
                 </label>
-              </div>
+              </div> */}
               <div className="hidden xl:flex space-x-5 items-center">
                 <Profile />
               </div>
