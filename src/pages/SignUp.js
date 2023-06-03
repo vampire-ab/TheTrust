@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Affiliation from "../components/Affiliation";
 import Recepient from "../components/Recepient";
-import User from "../components/User";
 import { GoChevronLeft } from "react-icons/go";
 import Location from "../components/Location";
 import Connect from "../components/Connect";
