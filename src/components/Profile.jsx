@@ -19,14 +19,14 @@ const Profile = () => {
       else Router.push(`/individual`, { query: { address: acc.recepient } });
     } catch (e) {
       console.log(e);
-      window.alert("Change Network to NEXT_PUBLIC_POLYGON mumbai");
+      window.alert("Change Network to POLYGON mumbai");
     }
   };
   return (
     <>
       {isConnected ? (
         <div className="flex gap-2 cursor-pointer">
-          <div onClick={handleClick} className="my-auto">
+          <div onClick={(e) => handleClick(e)} className="my-auto">
             <BiUserCircle className="text-2xl" />
           </div>
           <button className="flex gap-2">
