@@ -16,7 +16,7 @@ const Profile = () => {
       console.log(acc);
       if (acc.recepient === "0x0000000000000000000000000000000000000000")
         Router.push("/SignUp");
-      else Router.push(`/individual`, { query: { address: acc.recepient } });
+      else Router.push({pathname:`/individual`, query: { address: acc.recepient } });
     } catch (e) {
       console.log(e);
       window.alert("Change Network to POLYGON mumbai");
